@@ -10,26 +10,13 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
-});
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+for (const file of eventFiles) {
+    const event = require(`./events/${file}`);
+    client.on(event.name, event.execute.bind(null, client));
+}
 
-client.on('message', message => {
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+client.login(token);
 
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const commandName = args.shift().toLowerCase();
-
-    if (!client.commands.has(commandName)) return;
-
-    const command = client.commands.get(commandName);
-
-    try {
-        command.execute(message, args);
-    } catch (error) {
-        console.error(error);
-        message.reply('there was an error trying to execute that command!');
-    }
-});
 
 client.login('NzczNTgyMjM5Nzk1MTE4MTAw.GNJIFe.E-sVljdGpX_-rehkDLccmqF0nxFbOtYDMsLHk4');
