@@ -1,16 +1,23 @@
+const { prefix } = require('../config.json');
+const Eris = require('eris');
+const player = require('eris-player');
+
 module.exports = {
     name: 'join',
-    description: 'Buat menjadi bot bisa join voice',
-    execute(message, args) {
+    description: 'Join a voice channel and play radio',
+    execute(message) {
+        if (!message.content.startsWith(prefix + 'join')) return;
+
         if (!message.member.voice.channel) {
-            return message.reply("Kamu harus berada di voice channel!");
+            return message.reply('You need to be in a voice channel to use this command.');
         }
-        const channel = message.member.voice.channel;
-        channel.join()
-            .then(connection => {
-                message.reply(`Bot Telah join ${channel}`);
-                // you can do something with the connection object
-            })
-            .catch(err => message.reply(`Bot error tidak bisa join: ${err}`));
+
+        const connection = message.member.voice.channel.join();
+        const radioUrl = 'https://23743.live.streamtheworld.com/PRAMBORS_FM.mp3';
+        const stream = player.play(connection, radioUrl);
+
+        stream.on('finish', () => {
+            connection.disconnect();
+        });
     },
 };

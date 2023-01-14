@@ -1,3 +1,4 @@
+const { prefix } = require('../config.json');
 module.exports = {
     name: 'purge',
     description: 'Menghapus pesan secara bersamaan',
