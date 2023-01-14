@@ -1,0 +1,14 @@
+{
+  "name": "bot_discord_radio_api",
+  "version": "1.1.1",
+  "description": "mencoba discord bot menjadi radio menggunakan api",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Daffa Fakhuddin Arrozy",
+  "license": "ISC",
+  "dependencies": {
+    "discord": "^0.8.2"
+  }
+}
