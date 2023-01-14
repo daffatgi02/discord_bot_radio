@@ -1,12 +1,7 @@
 const Discord = require('discord.js');
-const client = new Discord.Client({
-    ws: {
-        intents: Discord.Intents.ALL
-    }
-});
+const client = new Discord.Client();
+const { prefix, token } = require("./config.json");
 const fs = require('fs');
-
-client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
@@ -21,6 +16,3 @@ for (const file of eventFiles) {
 }
 
 client.login(token);
-
-
-client.login('NzczNTgyMjM5Nzk1MTE4MTAw.GNJIFe.E-sVljdGpX_-rehkDLccmqF0nxFbOtYDMsLHk4');

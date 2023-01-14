@@ -1,4 +1,4 @@
-// example event file: message.js
+const { prefix } = require('../config.json');
 module.exports = {
     name: 'message',
     execute(client, message) {
